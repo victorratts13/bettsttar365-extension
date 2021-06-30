@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/victorratts13/bettsttar365-extension/blob/main/futebol-icon.png?raw=true" width="50px" />
+    <img src="https://github.com/victorratts13/bettsttar365-extension/blob/main/futebol-icon.png?raw=true" width="150" />
     <h1 align="center">bettsttar365-extension</h1>
     
 </p>
