@@ -1,4 +1,9 @@
+<center>
+    <img src="https://github.com/victorratts13/bettsttar365-extension/blob/main/futebol-icon.png?raw=true" width="50px" />
+
+
 # bettsttar365-extension
+</center>
 extensão bettsttar365 para google chrome https://bettsttar365.com/
 
 ## instalação
