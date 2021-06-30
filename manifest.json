@@ -1,0 +1,25 @@
+{
+  "name": "betsttar365",
+  "description": "Reply bets from bet365",
+  "version": "1.5",
+  "icons": {
+    "128": "icon_128.png"
+  },
+  "permissions": [
+    "debugger",
+    "webRequest",
+    "webRequestBlocking",
+    "*://*.bet365.com/*",
+    "http://localhost:3000/*"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "bet365 reply - bettstar365"
+  },
+  "manifest_version": 2
+}
