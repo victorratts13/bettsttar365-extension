@@ -21,6 +21,8 @@ function onAttach(tabId) {
     return;
   }
   console.log(tabId)
+  var code = 'window.location.reload();';
+  chrome.tabs.executeScript(tabId, {code: code});
   chrome.windows.create(
     { url: 'headers.html?call=' + tabId, type: 'popup', width: 430, height: 720 });
 }

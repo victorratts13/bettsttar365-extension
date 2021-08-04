@@ -31,8 +31,9 @@ console.log(tabId);
 var ws = io('http://localhost:8001');
 ws.emit('ident', { call: 'extension' })
 ws.emit('event', { status: 'success', evento: 'teste' })
-ws.on('test', test => {
+ws.on('connection-status', test => {
     console.log(test)
+    $('#statusConnection').removeClass('text-danger').addClass('text-success').html('Connected')
 })
 console.log('start edbot system');
 
@@ -58,11 +59,32 @@ function debuggerFrame(params, id, data) {
     })
 }
 
+function moduleTable(rest) {
+    var tbr = JSON.parse(rest.res.body);
+    console.log(tbr)
+    var tx = '', arr = [];
+    tx = `
+            <tr>
+                <th scope="row">${tbr.br}</th>
+                <td>${(tbr.la.map(mp => { return mp.fd || '--' })[0] || 'esportes virtuais | galgos | corrida')}</td>
+                <td>R$ ${tbr.ts}</td>
+                <td>${(tbr.la.map(mp => { return mp.ak || ' -- ' })[0] || 'ESPORTES')}</td>
+                <td><span class="text-success">Recebido</span></td>
+            </tr>
+            `;
+    arr.push(tx)
+    console.log(arr)
+    arr.map(ht => {
+        $('#bodyTable').html(ht)
+    })
+}
+
 async function response(params, id, dataGet) {
     if (params.response.url.includes('placebet') == true || params.response.url.includes('closebet') == true) {
         debuggerFrame(params, id, dataGet).then(rest => {
-            console.log(rest)
+            console.log(rest);
             ws.emit('ext', rest);
+            moduleTable(rest)
         }).catch(e => {
             console.log(e)
         })
@@ -74,7 +96,7 @@ chrome.debugger.sendCommand({
 }, 'Network.enable');
 var getData = {};
 chrome.debugger.onEvent.addListener((debuggeeId, message, params) => {
-    if(message == 'Network.webSocketFrameReceived'){
+    if (message == 'Network.webSocketFrameReceived') {
         ws.emit('frame-socket', params)
     }
     if (message == 'Network.requestWillBeSent') {
