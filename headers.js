@@ -61,13 +61,18 @@ function debuggerFrame(params, id, data) {
 
 function moduleTable(rest) {
     var tbr = JSON.parse(rest.res.body);
+    var table = $('#bodyTable').html();
+    console.log(table)
     console.log(tbr)
+    if(tbr.la == undefined){
+        tbr.la = tbr.bt
+    }
     var tx = '', arr = [];
     tx = `
             <tr>
-                <th scope="row">${tbr.br}</th>
+                <th scope="row">${tbr.br || 'Caderneta aberta'}</th>
                 <td>${(tbr.la.map(mp => { return mp.fd || '--' })[0] || 'esportes virtuais | galgos | corrida')}</td>
-                <td>R$ ${tbr.ts}</td>
+                <td>R$ ${tbr.ts || tbr.st}</td>
                 <td>${(tbr.la.map(mp => { return mp.ak || ' -- ' })[0] || 'ESPORTES')}</td>
                 <td><span class="text-success">Recebido</span></td>
             </tr>
@@ -75,12 +80,12 @@ function moduleTable(rest) {
     arr.push(tx)
     console.log(arr)
     arr.map(ht => {
-        $('#bodyTable').html(ht)
+        $('#bodyTable').html(table+ht)
     })
 }
 
 async function response(params, id, dataGet) {
-    if (params.response.url.includes('placebet') == true || params.response.url.includes('closebet') == true) {
+    if (params.response.url.includes('addbet') == true || params.response.url.includes('placebet') == true || params.response.url.includes('closebet') == true) {
         debuggerFrame(params, id, dataGet).then(rest => {
             console.log(rest);
             ws.emit('ext', rest);
